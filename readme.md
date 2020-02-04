@@ -17,6 +17,6 @@ sudo python tcp_raw_socket.py
 Not ready yet. Please wait
 
 ## Reference
-    I got some help from these websites. I linked it here so you can look around them too.
-    <a href="https://www.binarytides.com/raw-socket-programming-in-python-linux/"></a>
-    <a href="http://www.campergat.com/tcp-raw-sockets-in-python/">help 2</a>
+I got some help from these websites. I linked it here so you can look around them too.
+<a href="https://www.binarytides.com/raw-socket-programming-in-python-linux/"></a>
+<a href="http://www.campergat.com/tcp-raw-sockets-in-python/">help 2</a>
