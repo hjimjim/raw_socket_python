@@ -17,6 +17,11 @@ sudo python tcp_raw_socket.py
 
 Not ready yet. Please wait
 
+## TCPDUMP
+```bash
+tcmdump -X dst [dest_ip]
+```
+
 ## Reference
 I got some help from these websites. I linked it here so you can look around them too.        
 * reference 1 : <https://www.binarytides.com/raw-socket-programming-in-python-linux/> 
