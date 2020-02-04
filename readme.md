@@ -1,11 +1,3 @@
-# Raw Socket Programming in Python
-
-## TCP Packet
-sudo python tcp_raw_packet.py
-
-## ICMP Packet 
-not ready
-
 <p align="center">
   <h2 align="center">Raw Socket Programming in Python</h2>
     <a href="https://www.binarytides.com/raw-socket-programming-in-python-linux/">
