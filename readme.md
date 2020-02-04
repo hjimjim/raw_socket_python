@@ -1,11 +1,8 @@
 <p align="center">
   <h2 align="center">Raw Socket Programming in Python</h2>
-    <a href="https://www.binarytides.com/raw-socket-programming-in-python-linux/">
-        help 1
-    </a>
-     <a href="http://www.campergat.com/tcp-raw-sockets-in-python/">
-        help 2
-    </a>
+    <h3 align="center">I got some help from these websites. I linked it here so you can look around them too.<h3>
+    <a align="center" href="https://www.binarytides.com/raw-socket-programming-in-python-linux/">help 1</a>
+    <a align="center" href="http://www.campergat.com/tcp-raw-sockets-in-python/">help 2</a>
   </p>
 </p>
 
