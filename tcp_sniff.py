@@ -7,7 +7,8 @@ from struct import *
 
 #Convert a string of 6 characters of ethernet address into a dash separated hex string
 def eth_addr (a) :
-  b = "%.2x:%.2x:%.2x:%.2x:%.2x:%.2x" % (ord(a[0]) , ord(a[1]) , ord(a[2]), ord(a[3]), ord(a[4]) , ord(a[5]))
+  b = "%.2x:%.2x:%.2x:%.2x:%.2x:%.2x" %( a[0] , a[1] , a[2], a[3], a[4] , a[5])
+  #b = "%.2x:%.2x:%.2x:%.2x:%.2x:%.2x" % (ord(str(a[0])) , ord(str(a[1])) , ord(str(a[2])), ord(str(a[3])), ord(str(a[4])) , ord(str(a[5])))
   return b
 
 #create a AF_PACKET type raw socket (thats basically packet level)
@@ -78,7 +79,7 @@ while True:
 			#get data from the packet
 			data = packet[h_size:]
 			
-			print ('Data : ' + data)
+		#	print ("Data : " + data.decode("utf-8"))
 
 		#ICMP Packets
 		elif protocol == 1 :
@@ -101,10 +102,13 @@ while True:
 			#get data from the packet
 			data = packet[h_size:]
 			
-			print ('Data : ' + data)
-
+		#	print ("Data : " + data.decode("utf-8"))
+		else :
+			print ('Protocol other than TCP/UDP/ICMP')
+			
+		print
 		#UDP packets
-		elif protocol == 17 :
+		"""elif protocol == 17 :
 			u = iph_length + eth_length
 			udph_length = 8
 			udp_header = packet[u:u+8]
@@ -125,10 +129,6 @@ while True:
 			#get data from the packet
 			data = packet[h_size:]
 			
-			print ('Data : ' + data)
-
+			print ("Data : " + data.decode("utf-8"))"""
 		#some other IP packet like IGMP
-		else :
-			print ('Protocol other than TCP/UDP/ICMP')
-			
-		print
+		
