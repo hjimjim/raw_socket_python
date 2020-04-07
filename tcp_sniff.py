@@ -1,6 +1,5 @@
 #Packet sniffer in python
 #For Linux - Sniffs all incoming and outgoing packets :)
-#Silver Moon (m00n.silv3r@gmail.com)
 
 import socket, sys
 from struct import *
@@ -10,6 +9,34 @@ def eth_addr (a) :
   b = "%.2x:%.2x:%.2x:%.2x:%.2x:%.2x" %( a[0] , a[1] , a[2], a[3], a[4] , a[5])
   #b = "%.2x:%.2x:%.2x:%.2x:%.2x:%.2x" % (ord(str(a[0])) , ord(str(a[1])) , ord(str(a[2])), ord(str(a[3])), ord(str(a[4])) , ord(str(a[5])))
   return b
+
+def getflags(packet):
+    Flag_URG = {0:"", 1: "URG-Urgent flag)"}
+    Flag_ACK = {0:"",1: "ACK-Acknowledgment flag"}
+    Flag_PSH = {0:"",1: "PSH-Push flag"}
+    Flag_RST = {0:"",1: "RST-Reset flag"}
+    Flag_SYN = {0:"",1: "SYN-Synchronize flag"}
+    Flag_FIN = {0:"",1: "FIN-End of data flag"}
+
+    URG = packet & 0x020
+    URG >>= 5
+    ACK = packet & 0x010
+    ACK >>= 4
+    PSH = packet & 0x008
+    PSH >>= 3
+    RST = packet & 0x004
+    RST >>= 2
+    SYN = packet & 0x002
+    SYN >>= 1
+    FIN = packet & 0x001
+    FIN >>= 0
+
+
+    new_line = "\n"
+
+    Flags = Flag_URG[URG] + new_line + Flag_ACK[ACK] + new_line + Flag_PSH[PSH] + new_line + Flag_RST[RST] + new_line + Flag_SYN[SYN] + new_line + Flag_FIN[FIN]
+    return Flags
+
 
 #create a AF_PACKET type raw socket (thats basically packet level)
 #define ETH_P_ALL    0x0003          /* Every packet (be careful!!!) */
@@ -71,15 +98,19 @@ while True:
 			doff_reserved = tcph[4]
 			tcph_length = doff_reserved >> 4
 			
+			print(getflags(tcph[3]))	
 			print ('Source Port : ' + str(source_port) + ' Dest Port : ' + str(dest_port) + ' Sequence Number : ' + str(sequence) + ' Acknowledgement : ' + str(acknowledgement) + ' TCP header length : ' + str(tcph_length))
-			
 			h_size = eth_length + iph_length + tcph_length * 4
 			data_size = len(packet) - h_size
 			
 			#get data from the packet
-			data = packet[h_size:]
-			print ("Data : " + data.decode("utf-8","strict"))
+			#data = packet[h_size:]
+			#print ("Data : " + data.decode("utf-8","strict"))
+		#some other IP packet like ICMP/UDP/IGMP
+		else :
+			print ('Protocol other than TCP')
 
+		"""
 		#ICMP Packets
 		elif protocol == 1 :
 			u = iph_length + eth_length
@@ -101,10 +132,7 @@ while True:
 			#get data from the packet
 			data = packet[h_size:]
 		#	print ("Data : " + data.decode("utf-8"))
-		#some other IP packet like IGMP
-		else :
-			print ('Protocol other than TCP/ICMP')
-		"""
+		
 			#UDP packets
 			elif protocol == 17 :
 			u = iph_length + eth_length
