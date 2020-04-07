@@ -7,7 +7,7 @@ def checksum(msg):
 	
 	# loop taking 2 characters at a time
 	for i in range(0, len(msg), 2):
-		w = ord(msg[i]) + (ord(msg[i+1]) << 8 )
+		w =1 #ord(msg[i]) + (ord(msg[i+1]) << 8 )
 		s = s + w
 	
 	s = (s >> 16) + (s & 0xffff)
@@ -71,7 +71,7 @@ def create_tcp_header(source_ip, dest_ip,user_data):
 	tcp_length = len(first_tcp_header) + len(user_data)
 
 	psh = pack('!4s4sBBH' , source_address , dest_address , placeholder , protocol , tcp_length)
-	psh = psh + first_tcp_header + user_data
+	psh = psh + first_tcp_header + user_data.encode("ascii")
 	tcp_check = checksum(psh)
 
 	# make the tcp header again and fill the correct checksum - remember checksum is NOT in network byte order
@@ -88,20 +88,20 @@ def create_packet():
 		print('Socket could not be created. Error Code : ' + str(msg))
 		sys.exit()
 
-	source_ip = ''  # fill this with src ip
-	dest_ip = ''	# dst ip or socket.gethostbyname('www.google.com')
+	source_ip = '10.0.2.15'  # fill this with src ip
+	dest_ip = '8.8.8.8'	# dst ip or socket.gethostbyname('www.google.com')
 	user_data = 'Hello, how are you'
 
 	ip_header = create_ip_header(source_ip, dest_ip)
 	# final full packet - syn packets dont have any data
 	packet = ''
 	tcp_header = create_tcp_header(source_ip, dest_ip, user_data)
-	packet = ip_header + tcp_header + user_data
+	packet = ip_header + tcp_header + user_data.encode('ascii')
 
 	#Send the packet  
 	loop = 0
 	while loop < 100:
-		print("num : " + loop)
+		print("num : " + str(loop))
 		s.sendto(packet, (dest_ip , 0 ))	# put this in a loop if you want to flood the target
 		loop = loop + 1
 
