@@ -78,8 +78,7 @@ while True:
 			
 			#get data from the packet
 			data = packet[h_size:]
-			
-		#	print ("Data : " + data.decode("utf-8"))
+			print ("Data : " + data.decode("utf-8","strict"))
 
 		#ICMP Packets
 		elif protocol == 1 :
@@ -101,14 +100,13 @@ while True:
 			
 			#get data from the packet
 			data = packet[h_size:]
-			
 		#	print ("Data : " + data.decode("utf-8"))
+		#some other IP packet like IGMP
 		else :
-			print ('Protocol other than TCP/UDP/ICMP')
-			
-		print
-		#UDP packets
-		"""elif protocol == 17 :
+			print ('Protocol other than TCP/ICMP')
+		"""
+			#UDP packets
+			elif protocol == 17 :
 			u = iph_length + eth_length
 			udph_length = 8
 			udp_header = packet[u:u+8]
@@ -129,6 +127,5 @@ while True:
 			#get data from the packet
 			data = packet[h_size:]
 			
-			print ("Data : " + data.decode("utf-8"))"""
-		#some other IP packet like IGMP
-		
+			print ("Data : " + data.decode("utf-8"))
+		"""
