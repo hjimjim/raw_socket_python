@@ -19,7 +19,9 @@ def getflags(packet):
     Flag_FIN = {0:"",1: "FIN-End of data flag"}
 
     URG = packet & 0x020
+    print(URG)
     URG >>= 5
+    print(URG)
     ACK = packet & 0x010
     ACK >>= 4
     PSH = packet & 0x008
@@ -30,10 +32,7 @@ def getflags(packet):
     SYN >>= 1
     FIN = packet & 0x001
     FIN >>= 0
-
-
-    new_line = "\n"
-
+    new_line = ""
     Flags = Flag_URG[URG] + new_line + Flag_ACK[ACK] + new_line + Flag_PSH[PSH] + new_line + Flag_RST[RST] + new_line + Flag_SYN[SYN] + new_line + Flag_FIN[FIN]
     return Flags
 
@@ -98,7 +97,9 @@ while True:
 			doff_reserved = tcph[4]
 			tcph_length = doff_reserved >> 4
 			
+			print("=============================================")
 			print(getflags(tcph[3]))	
+			print("=============================================")
 			print ('Source Port : ' + str(source_port) + ' Dest Port : ' + str(dest_port) + ' Sequence Number : ' + str(sequence) + ' Acknowledgement : ' + str(acknowledgement) + ' TCP header length : ' + str(tcph_length))
 			h_size = eth_length + iph_length + tcph_length * 4
 			data_size = len(packet) - h_size
