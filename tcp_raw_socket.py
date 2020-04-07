@@ -88,8 +88,8 @@ def create_packet():
 		print('Socket could not be created. Error Code : ' + str(msg))
 		sys.exit()
 
-	source_ip = ''  # fill this with src ip
-	dest_ip = ''	# dst ip or socket.gethostbyname('www.google.com')
+	source_ip = '192.168.219.142'  # fill this with src ip
+	dest_ip = '8.8.8.8'	# dst ip or socket.gethostbyname('www.google.com')
 	user_data = 'Hello, how are you'
 
 	ip_header = create_ip_header(source_ip, dest_ip)
@@ -101,7 +101,7 @@ def create_packet():
 	#Send the packet  
 	loop = 0
 	while loop < 100:
-		print("num : " + loop)
+		#print("num : " + loop)
 		s.sendto(packet, (dest_ip , 0 ))	# put this in a loop if you want to flood the target
 		loop = loop + 1
 
